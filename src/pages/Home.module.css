@@ -1,0 +1,383 @@
+/* ---------- Hero ---------- */
+
+@property --level {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: min(calc(100svh - 72px), 880px);
+  padding-block: 3rem clamp(3rem, 7vw, 5.5rem);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.heroPhoto {
+  position: absolute;
+  inset: 0 0 0 auto;
+  z-index: -1;
+  width: min(78%, 1180px);
+  height: 100%;
+  object-fit: cover;
+  object-position: 52% 70%;
+  mask-image: linear-gradient(to right, transparent 0%, #000 38%), linear-gradient(to top, transparent 0%, #000 22%);
+  mask-composite: intersect;
+}
+
+/* La palabra se llena de dorado como una taza: única animación de entrada del sitio */
+.giant {
+  position: absolute;
+  top: clamp(0.5rem, 2vw, 2rem);
+  right: clamp(1.5rem, 5vw, 5.5rem);
+  z-index: -1;
+  display: grid;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 21vw, 20rem);
+  font-weight: 900;
+  font-variation-settings: 'SOFT' 100, 'opsz' 144, 'WONK' 1;
+  line-height: 0.8;
+  letter-spacing: -0.045em;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(236, 183, 76, 0.85);
+  background: linear-gradient(to top, var(--gold) var(--level), transparent var(--level));
+  -webkit-background-clip: text;
+  background-clip: text;
+  mix-blend-mode: screen;
+  animation: fill 2.6s 0.3s var(--ease) forwards;
+  user-select: none;
+}
+
+.giant span:last-child {
+  padding-left: 0.42em;
+}
+
+@keyframes fill {
+  to {
+    --level: 64%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .giant {
+    --level: 64%;
+    animation: none;
+  }
+}
+
+.heroCopy {
+  display: grid;
+  gap: 1.5rem;
+  justify-items: start;
+}
+
+.heroCopy h1 {
+  max-width: 13ch;
+  font-size: var(--step-4);
+}
+
+.heroCopy .lead {
+  max-width: 38ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+/* ---------- Bloques generales ---------- */
+
+.block {
+  margin-top: clamp(4.5rem, 10vw, 8rem);
+}
+
+.heading {
+  font-size: var(--step-3);
+}
+
+.headRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.more {
+  color: var(--gold);
+  font-weight: 600;
+  text-underline-offset: 0.3em;
+}
+
+/* ---------- Accesos en forma de arco ---------- */
+
+.doors {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 2.5vw, 2rem);
+  margin-top: 2rem;
+  list-style: none;
+}
+
+.door {
+  display: grid;
+  gap: 0.35rem;
+  text-decoration: none;
+}
+
+.arch {
+  display: block;
+  aspect-ratio: 3 / 4;
+  margin-bottom: 0.9rem;
+  border-radius: var(--arch);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.arch img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+}
+
+.door:hover .arch img {
+  transform: scale(1.06);
+}
+
+.doorTitle {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 600;
+  font-variation-settings: 'SOFT' 100;
+  transition: color 0.2s var(--ease);
+}
+
+.door:hover .doorTitle {
+  color: var(--gold);
+}
+
+.doorText {
+  color: var(--cream-dim);
+}
+
+/* ---------- Cultura ---------- */
+
+.culture {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 560px;
+  margin-top: clamp(4.5rem, 10vw, 8rem);
+  isolation: isolate;
+}
+
+.culture > img {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.culture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(17, 6, 2, 0.94) 0%, rgba(17, 6, 2, 0.7) 45%, rgba(17, 6, 2, 0.1) 100%);
+}
+
+.cultureInner {
+  padding-block: 4rem;
+}
+
+.cultureCopy {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: start;
+  max-width: 34rem;
+}
+
+.cultureCopy h2 {
+  font-size: var(--step-3);
+}
+
+.cultureCopy p {
+  color: var(--cream-dim);
+  font-size: var(--step-1);
+}
+
+/* ---------- Recetas destacadas ---------- */
+
+.recipes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+/* ---------- Tabla de métodos ---------- */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.table th,
+.table td {
+  padding: 1.1rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+.table thead th {
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--caramel);
+}
+
+.table tbody th a {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 600;
+  font-variation-settings: 'SOFT' 100;
+  text-decoration: none;
+}
+
+.table tbody th a:hover {
+  color: var(--gold);
+}
+
+.table tbody tr {
+  transition: background-color 0.2s var(--ease);
+}
+
+.table tbody tr:hover {
+  background: var(--surface);
+}
+
+.table td {
+  color: var(--cream-dim);
+}
+
+/* ---------- Cierre ---------- */
+
+.closing {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  margin-top: clamp(4.5rem, 10vw, 8rem);
+}
+
+.closing img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.closingCopy {
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+}
+
+.closingCopy h2 {
+  font-size: var(--step-3);
+}
+
+.closingCopy p {
+  color: var(--cream-dim);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 980px) {
+  .doors {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .recipes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    min-height: 0;
+    padding-top: 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .heroPhoto {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: 400px;
+    object-position: 50% 100%;
+    mask-image: linear-gradient(to top, transparent 0%, #000 30%);
+  }
+
+  .giant {
+    top: 0.5rem;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    font-size: clamp(5rem, 27vw, 8rem);
+  }
+
+  .heroCopy {
+    margin-top: -1rem;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tr {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .table th,
+  .table td {
+    padding: 0.2rem 0;
+    border: 0;
+  }
+
+  .table tbody th {
+    grid-column: 1 / -1;
+    margin-bottom: 0.4rem;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.8rem;
+    color: var(--caramel);
+  }
+
+  .closing {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .recipes {
+    grid-template-columns: 1fr;
+  }
+}

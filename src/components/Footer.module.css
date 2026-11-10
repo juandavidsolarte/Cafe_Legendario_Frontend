@@ -1,0 +1,48 @@
+.footer {
+  margin-top: clamp(4rem, 10vw, 8rem);
+  padding-block: 3.5rem 2rem;
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2.5rem;
+}
+
+.brand p {
+  margin-top: 1rem;
+  max-width: 42ch;
+  color: var(--cream-dim);
+}
+
+.links {
+  display: grid;
+  gap: 0.6rem;
+  align-content: start;
+  justify-items: start;
+}
+
+.links a {
+  color: var(--cream-dim);
+  text-decoration: none;
+}
+
+.links a:hover {
+  color: var(--gold);
+}
+
+.legal {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  font-size: var(--step--1);
+  color: rgba(243, 230, 209, 0.5);
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

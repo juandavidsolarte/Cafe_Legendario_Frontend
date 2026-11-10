@@ -1,0 +1,33 @@
+.box {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+  padding: 4rem 1.5rem;
+  text-align: center;
+  color: var(--cream-dim);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  color: var(--cream);
+}
+
+.text {
+  max-width: 46ch;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid var(--line);
+  border-top-color: var(--gold);
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

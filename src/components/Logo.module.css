@@ -1,0 +1,28 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: var(--cream);
+}
+
+.mark {
+  width: 34px;
+  height: 34px;
+  color: var(--gold);
+  flex: none;
+}
+
+.word {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-variation-settings: 'SOFT' 100, 'opsz' 48;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.word em {
+  font-weight: 400;
+  color: var(--caramel);
+}
