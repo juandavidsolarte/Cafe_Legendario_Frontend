@@ -1,0 +1,128 @@
+.hero {
+  position: relative;
+  margin-top: clamp(4.5rem, 10vw, 8rem);
+  display: flex;
+  align-items: center;
+  min-height: min(calc(100svh - 72px), 900px);
+  padding-block: clamp(2rem, 5vw, 4rem);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Escenario: la escena 3D ocupa todo el hero; la taza vive en la mitad derecha. */
+.stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.photo {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(62%, 1000px);
+  height: 100%;
+  object-fit: cover;
+  object-position: 52% 70%;
+  mask-image: linear-gradient(to right, transparent 0%, #000 38%), linear-gradient(to top, transparent 0%, #000 22%);
+  mask-composite: intersect;
+  transition: opacity 0.9s var(--ease);
+}
+
+.photoHidden {
+  opacity: 0;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+}
+
+.canvasReady {
+  opacity: 1;
+}
+
+/* El texto no bloquea el puntero sobre la taza; solo sus piezas lo reciben. */
+.copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1.4rem;
+  justify-items: start;
+  pointer-events: none;
+}
+
+.copy > * {
+  pointer-events: auto;
+}
+
+.word {
+  width: min(44vw, 600px);
+  margin-bottom: 0.25rem;
+}
+
+.copy h2 {
+  max-width: 13ch;
+  font-size: var(--step-4);
+}
+
+.copy :global(.lead) {
+  max-width: 38ch;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.4rem;
+}
+
+.hint {
+  position: absolute;
+  right: var(--gutter);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 1;
+  color: var(--cream-dim);
+  font-size: var(--step--1);
+  pointer-events: none;
+}
+
+@media (hover: none) {
+  .hint {
+    display: none;
+  }
+}
+
+/* Teléfono y tableta: la taza arriba, el texto debajo. */
+@media (max-width: 899px) {
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    padding-block: 0 3rem;
+  }
+
+  .stage {
+    position: relative;
+    height: 48svh;
+    min-height: 320px;
+    mask-image: linear-gradient(to bottom, #000 75%, transparent 100%);
+  }
+
+  .photo {
+    width: 100%;
+    mask-image: none;
+  }
+
+  .copy {
+    margin-top: -2.5rem;
+  }
+
+  .word {
+    width: min(86vw, 520px);
+  }
+
+  .hint {
+    display: none;
+  }
+}

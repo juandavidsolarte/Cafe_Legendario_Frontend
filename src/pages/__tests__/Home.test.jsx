@@ -66,8 +66,13 @@ describe('Home Page', () => {
       </MemoryRouter>
     );
 
+    // El único h1 es el eslogan; el antiguo titular pasó a h2 en la sección de cierre.
     expect(
-      screen.getByRole('heading', { level: 1, name: /El café se aprende taza a taza/i })
+      screen.getByRole('heading', { level: 1, name: /El aroma que inspira grandes hazañas/i })
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1);
+    expect(
+      screen.getByRole('heading', { level: 2, name: /El café se aprende taza a taza/i })
     ).toBeInTheDocument();
 
     const linkRecetas = screen.getByRole('link', { name: 'Ver el recetario' });

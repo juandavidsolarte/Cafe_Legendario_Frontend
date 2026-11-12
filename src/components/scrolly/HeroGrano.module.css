@@ -1,0 +1,104 @@
+.hero {
+  position: relative;
+  height: calc(100svh - 72px);
+  min-height: 520px;
+  background: var(--bg);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Los fotogramas tienen fondo negro puro: con "screen" el negro desaparece
+   sobre el fondo de la página y no se ve el rectángulo del canvas. */
+.media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* El póster inicial ocupa el mismo sitio y tamaño que el primer fotograma del canvas. */
+.poster {
+  --zoom: 0.64;
+  transform: scale(var(--zoom));
+}
+
+.posterHidden {
+  opacity: 0;
+}
+
+/* Eslogan partido en dos bloques, uno a cada lado del grano. */
+.slogan {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24vw minmax(0, 1fr);
+  align-items: center;
+  padding-inline: clamp(1.5rem, 6vw, 7rem);
+  font-size: clamp(1.75rem, 2.4vw + 0.6rem, 3.25rem);
+  line-height: 1.1;
+  text-shadow: 0 2px 24px rgba(17, 6, 2, 0.9);
+  pointer-events: none;
+}
+
+.slogan span:first-child {
+  grid-column: 1;
+  max-width: 13ch;
+}
+
+.slogan span:last-child {
+  grid-column: 3;
+  justify-self: end;
+  max-width: 11ch;
+  text-align: right;
+  color: var(--gold);
+}
+
+.hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(1rem, 4vh, 2.25rem);
+  z-index: 1;
+  text-align: center;
+  color: var(--cream-dim);
+  font-size: var(--step--1);
+  pointer-events: none;
+}
+
+/* Teléfono y tableta: el grano llena el ancho, así que el eslogan va arriba, completo. */
+@media (max-width: 899px) {
+  .poster {
+    --zoom: 0.8;
+    inset: auto;
+    left: 50%;
+    top: 60%;
+    width: calc(100% / 0.42);
+    height: auto;
+    max-width: none;
+    transform: translate(-50%, -50%) scale(var(--zoom));
+  }
+
+  .slogan {
+    inset: 0 0 auto;
+    display: block;
+    padding: clamp(1.25rem, 5vh, 2.5rem) var(--gutter) 0;
+    font-size: clamp(1.5rem, 5.6vw + 0.3rem, 2.4rem);
+    text-wrap: balance;
+  }
+
+  .slogan span:first-child,
+  .slogan span:last-child {
+    max-width: none;
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hint {
+    display: none;
+  }
+}

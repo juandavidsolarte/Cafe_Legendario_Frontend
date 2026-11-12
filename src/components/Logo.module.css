@@ -7,10 +7,23 @@
 }
 
 .mark {
-  width: 34px;
-  height: 34px;
-  color: var(--gold);
+  width: auto;
+  height: 52px;
   flex: none;
+  /* Resplandor dorado que sigue el trazo del logo (drop-shadow, no box-shadow). */
+  filter: drop-shadow(0 0 1px rgba(222, 178, 97, 0.6)) drop-shadow(0 0 5px rgba(222, 178, 97, 0.38));
+  transition: filter 0.3s var(--ease);
+}
+
+.logo:hover .mark,
+.logo:focus-visible .mark {
+  filter: drop-shadow(0 0 2px rgba(222, 178, 97, 0.85)) drop-shadow(0 0 9px rgba(222, 178, 97, 0.55));
+}
+
+@media (max-width: 560px) {
+  .mark {
+    height: 44px;
+  }
 }
 
 .word {

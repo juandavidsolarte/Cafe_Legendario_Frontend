@@ -1,0 +1,83 @@
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section + .section {
+  margin-top: clamp(2rem, 6vw, 5rem);
+}
+
+/* Clip vertical 9:16. El fondo negro del fotograma se funde con la página. */
+.media {
+  position: relative;
+  justify-self: center;
+  height: min(86svh, 820px);
+  aspect-ratio: 9 / 16;
+  max-width: 100%;
+  /* Fondo propio para que "screen" funda el negro del fotograma con el color de la página. */
+  background: var(--bg);
+  isolation: isolate;
+}
+
+.frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: screen;
+}
+
+.posterHidden {
+  opacity: 0;
+}
+
+.text {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: start;
+  max-width: 30rem;
+}
+
+.text h2 {
+  font-size: var(--step-4);
+  max-width: 12ch;
+}
+
+.text p {
+  color: var(--cream-dim);
+  font-size: var(--step-1);
+}
+
+.right .media {
+  order: 2;
+}
+
+.right .text {
+  justify-self: end;
+}
+
+@media (max-width: 760px) {
+  .section {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .media {
+    height: min(72svh, 620px);
+  }
+
+  .right .media {
+    order: 0;
+  }
+
+  .right .text {
+    justify-self: start;
+  }
+}

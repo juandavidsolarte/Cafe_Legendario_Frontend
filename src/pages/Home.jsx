@@ -1,4 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Hero from '../components/hero/Hero';
+import HeroGrano from '../components/scrolly/HeroGrano';
+import ScrollLoop from '../components/scrolly/ScrollLoop';
 import RecipeCard from '../components/RecipeCard';
 import StatusMessage from '../components/StatusMessage';
 import useFetch from '../hooks/useFetch';
@@ -17,25 +22,30 @@ export default function Home() {
   const recipes = useFetch(() => getRecipes({ featured: true }));
   const methods = useFetch(getMethods);
 
+  // Al llegar recetas y métodos cambia el alto de la página: los disparadores de scroll se recalculan.
+  useEffect(() => {
+    ScrollTrigger.refresh();
+  }, [recipes.data, methods.data]);
+
   return (
     <>
-      <section className={styles.hero}>
-        <img className={styles.heroPhoto} src={images.espresso} alt="" fetchPriority="high" />
-        <p className={styles.giant} aria-hidden="true">
-          <span>Ca</span>
-          <span>fé</span>
-        </p>
-        <div className={`container ${styles.heroCopy}`}>
-          <h1>El café se aprende taza a taza.</h1>
-          <p className="lead">
-            Historia, variedades, métodos y recetas para entender lo que hay detrás de cada sorbo.
-          </p>
-          <div className={styles.actions}>
-            <Link to="/recetas" className="btn btn-primary">Ver el recetario</Link>
-            <Link to="/cultura" className="btn btn-ghost">Conocer su origen</Link>
-          </div>
-        </div>
-      </section>
+      <HeroGrano />
+
+      <div className={styles.story}>
+        <ScrollLoop name="pour" id="chorro" title="Del grano nace el aroma" to="/metodos" cta="Conocer los métodos">
+          Tostar, moler y extraer. Esos tres pasos convierten una semilla en lo que hueles antes del primer sorbo.
+        </ScrollLoop>
+        <ScrollLoop
+          name="latte"
+          id="latte"
+          side="right"
+          title="Cada taza tiene una historia"
+          to="/recetas"
+          cta="Explorar las recetas"
+        >
+          Leche, espuma, hielo o especias. El mismo café cambia según cómo lo prepares.
+        </ScrollLoop>
+      </div>
 
       <section className={`container ${styles.block}`} aria-labelledby="explorar">
         <h2 id="explorar" className={styles.heading}>Por dónde empezar</h2>
@@ -125,14 +135,7 @@ export default function Home() {
         )}
       </section>
 
-      <section className={`container ${styles.closing}`}>
-        <img src={images.frio} alt="" loading="lazy" />
-        <div className={styles.closingCopy}>
-          <h2>¿Qué vas a preparar hoy?</h2>
-          <p>Busca por nombre o filtra por método, categoría y dificultad.</p>
-          <Link to="/recetas" className="btn btn-primary">Buscar una receta</Link>
-        </div>
-      </section>
+      <Hero />
     </>
   );
 }
