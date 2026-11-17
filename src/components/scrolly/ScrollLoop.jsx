@@ -8,21 +8,30 @@ import styles from './ScrollLoop.module.css';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const FRAMES = 49;
-// El clip no vuelve nunca a una pose parecida a la inicial (se midió fotograma a fotograma),
-// así que el final se disuelve largo y suave sobre el inicio. Se reproduce a los 16 fps
-// originales; entre fotogramas se mezclan los vecinos para que no se vea a saltos.
 const FPS = 16;
-const BLEND = 18;
-const PERIOD = FRAMES - 1 - BLEND;
 
 const smooth = (x) => x * x * (3 - 2 * x);
 
 /**
- * Sección con un clip vertical en bucle (chorro o latte) y texto al lado.
+ * Sección con un clip vertical en bucle y texto al lado.
  * El bucle solo corre mientras la sección está en pantalla.
+ *
+ * `blend` = 0: el clip ya cierra solo (el último fotograma enlaza con el primero).
+ * `blend` > 0: el clip no cierra; sus últimos `blend` fotogramas se disuelven sobre los primeros.
+ * Entre fotogramas se mezclan los vecinos para que no se vea a saltos.
  */
-export default function ScrollLoop({ name, title, children, to, cta, side = 'left', id }) {
+export default function ScrollLoop({
+  name,
+  frames,
+  blend = 0,
+  ratio = '9 / 16',
+  title,
+  children,
+  to,
+  cta,
+  side = 'left',
+  id,
+}) {
   const root = useRef(null);
   const canvas = useRef(null);
   const [painted, setPainted] = useState(false);
@@ -36,24 +45,30 @@ export default function ScrollLoop({ name, title, children, to, cta, side = 'lef
         const sequence = createFrameSequence({
           canvas: canvas.current,
           name,
-          count: FRAMES,
+          count: frames,
           fit: 'contain',
           interpolate: true,
+          wrap: blend === 0,
           onFirstFrame: () => setPainted(true),
         });
         const state = { t: 0 };
         const onResize = () => sequence.resize();
         window.addEventListener('resize', onResize);
 
+        const period = blend === 0 ? frames : frames - 1 - blend;
         const draw = () => {
-          const main = state.t + BLEND;
-          const over = main - PERIOD;
-          sequence.render(main, over > 0 ? { frame: over, alpha: smooth(over / BLEND) } : null);
+          if (blend === 0) {
+            sequence.render(state.t);
+            return;
+          }
+          const main = state.t + blend;
+          const over = main - period;
+          sequence.render(main, over > 0 ? { frame: over, alpha: smooth(over / blend) } : null);
         };
 
         const loop = gsap.to(state, {
-          t: PERIOD,
-          duration: PERIOD / FPS,
+          t: period,
+          duration: period / FPS,
           ease: 'none',
           repeat: -1,
           paused: true,
@@ -95,12 +110,12 @@ export default function ScrollLoop({ name, title, children, to, cta, side = 'lef
       });
       return () => mm.revert();
     },
-    { scope: root, dependencies: [name] },
+    { scope: root, dependencies: [name, frames, blend] },
   );
 
   return (
     <section ref={root} className={`${styles.section} ${side === 'right' ? styles.right : ''}`} aria-labelledby={id}>
-      <div className={styles.media} aria-hidden="true">
+      <div className={styles.media} style={{ aspectRatio: ratio }} aria-hidden="true">
         <img
           className={`${styles.frame} ${painted ? styles.posterHidden : ''}`}
           src={posterUrl(name)}

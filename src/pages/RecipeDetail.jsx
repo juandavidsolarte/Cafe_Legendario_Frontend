@@ -57,6 +57,23 @@ export default function RecipeDetail() {
 
       <div className={styles.body}>
         <aside className={styles.aside}>
+          {recipe.coffee && (
+            <div className={styles.coffee}>
+              <h2>Café Legendario</h2>
+              <p className={styles.coffeeAmount}>{recipe.coffee.grams} g</p>
+              <dl className={styles.coffeeFacts}>
+                <div>
+                  <dt>Molienda</dt>
+                  <dd>{recipe.coffee.grind}</dd>
+                </div>
+                <div>
+                  <dt>Café</dt>
+                  <dd>Arábica Caturra, tueste medio</dd>
+                </div>
+              </dl>
+              <Link to="/tienda">Ver el café en la tienda</Link>
+            </div>
+          )}
           <h2>Ingredientes</h2>
           <ul className={styles.ingredients}>
             {recipe.ingredients.map((item) => (

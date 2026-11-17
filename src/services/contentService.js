@@ -49,6 +49,10 @@ export function getArticles() {
   return useMock ? fromMock(mock.articles) : get('/api/articles/');
 }
 
+export function getProducts() {
+  return useMock ? fromMock(mock.products) : get('/api/products/');
+}
+
 export function getRecipe(slug) {
   return useMock ? fromMock(mock.recipes, slug) : get(`/api/recipes/${slug}/`);
 }

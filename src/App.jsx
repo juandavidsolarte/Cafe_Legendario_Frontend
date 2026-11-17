@@ -8,6 +8,8 @@ import Methods from './pages/Methods';
 import MethodDetail from './pages/MethodDetail';
 import Recipes from './pages/Recipes';
 import RecipeDetail from './pages/RecipeDetail';
+import Shop from './pages/Shop';
+import Cart from './pages/Cart';
 import NotFound from './pages/NotFound';
 
 export default function App() {
@@ -22,6 +24,8 @@ export default function App() {
         <Route path="metodos/:slug" element={<MethodDetail />} />
         <Route path="recetas" element={<Recipes />} />
         <Route path="recetas/:slug" element={<RecipeDetail />} />
+        <Route path="tienda" element={<Shop />} />
+        <Route path="carrito" element={<Cart />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
