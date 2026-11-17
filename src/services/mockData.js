@@ -488,24 +488,39 @@ export const articles = [
 ];
 
 // ---------- Tienda ----------
-// Primer producto real, tomado de la ficha técnica de la marca.
-// Precio, presentaciones y foto de empaque aún no están definidos.
+// Datos tomados del empaque real. Un solo café con dos presentaciones (molienda); 500 g.
 export const products = [
   {
     id: 1,
-    slug: 'cafe-arabica-caturra',
-    name: 'Café arábica Caturra',
+    slug: 'legendario-cafe',
+    name: 'Legendario Café',
     summary: 'Taza balanceada, con notas dulces a frutas y cítricos suaves.',
-    profile:
-      'Acidez media y brillante, cuerpo sedoso y final afrutado y elegante.',
-    origin: 'San Pablo, Nariño, Colombia',
+    profile: 'Acidez media y brillante, cuerpo sedoso y final afrutado.',
+    cup: 'Balanceado',
+    origin: 'San Pablo, Nariño',
+    region: 'Nariño',
     farm: 'Sol y Arte',
     altitude: '1700 m s. n. m.',
     variety: 'Arábica Caturra',
-    process: 'Lavado',
+    process: 'Lavado, secado solar',
     roast: 'Media',
-    drying: 'Secado solar',
-    price: null,
-    available: false,
+    variants: [
+      {
+        sku: 'LEG-GRANO-500',
+        grind: 'Grano',
+        grind_note: 'Grano entero, para moler justo antes de preparar.',
+        weight: '500 g',
+        price: 38000,
+        available: true,
+      },
+      {
+        sku: 'LEG-MOLIDO-500',
+        grind: 'Molido',
+        grind_note: 'Molienda media, lista para filtro, prensa o moka.',
+        weight: '500 g',
+        price: 38000,
+        available: true,
+      },
+    ],
   },
 ];

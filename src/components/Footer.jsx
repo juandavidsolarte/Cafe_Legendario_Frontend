@@ -16,6 +16,7 @@ export default function Footer() {
           <Link to="/variedades">Variedades</Link>
           <Link to="/metodos">Métodos de preparación</Link>
           <Link to="/recetas">Recetario</Link>
+          <Link to="/terminos">Términos y condiciones</Link>
         </nav>
       </div>
       <p className={`container ${styles.legal}`}>

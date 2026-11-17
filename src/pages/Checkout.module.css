@@ -1,0 +1,291 @@
+.page {
+  padding-top: clamp(2rem, 5vw, 4rem);
+}
+
+.page h1 {
+  font-size: var(--step-4);
+}
+
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2rem;
+  margin-top: 1rem;
+  list-style: none;
+  color: var(--cream-dim);
+}
+
+.steps li[aria-current='step'] {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  margin-top: 2.5rem;
+  align-items: start;
+}
+
+/* ---------- Formulario ---------- */
+
+.form {
+  display: grid;
+  gap: 2rem;
+}
+
+.form fieldset {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.form legend,
+.review h2,
+.payment h2 {
+  margin-bottom: 0.5rem;
+  padding: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.wide {
+  grid-column: 1 / -1;
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.field > span {
+  font-weight: 500;
+}
+
+.field em {
+  color: var(--cream-dim);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 1rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--cream);
+  font: inherit;
+  transition: border-color 0.15s var(--ease), background-color 0.15s var(--ease);
+}
+
+.field input:hover,
+.field select:hover {
+  background: var(--surface-2);
+}
+
+.field input:focus-visible,
+.field select:focus-visible {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.field small {
+  color: var(--cream-dim);
+  font-size: var(--step--1);
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.check input {
+  width: 22px;
+  height: 22px;
+  margin-top: 0.15rem;
+  flex: none;
+  accent-color: var(--gold);
+}
+
+.check a,
+.edit {
+  color: var(--gold);
+  text-underline-offset: 0.25em;
+}
+
+.submit {
+  width: 100%;
+  min-height: 60px;
+  font-size: var(--step-1);
+}
+
+.failure {
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-sm);
+  background: rgba(214, 88, 60, 0.16);
+  color: #ffb9a6;
+}
+
+a.submit {
+  text-align: center;
+}
+
+.submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.review,
+.payment {
+  display: grid;
+  gap: 0.9rem;
+  justify-items: start;
+  padding: 1.75rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+}
+
+.review p,
+.payment p {
+  color: var(--cream-dim);
+}
+
+.payment strong {
+  color: var(--cream);
+}
+
+.edit {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a.edit {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ---------- Resumen ---------- */
+
+.summary {
+  position: sticky;
+  top: 96px;
+  display: grid;
+  gap: 0.9rem;
+  padding: 1.75rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+}
+
+.items {
+  display: grid;
+  gap: 1.1rem;
+  margin-bottom: 0.75rem;
+  list-style: none;
+}
+
+.items li {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.qty {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  display: grid;
+  place-items: center;
+  min-width: 24px;
+  height: 24px;
+  padding-inline: 6px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--bg);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.itemBody {
+  display: grid;
+  gap: 0.15rem;
+  color: var(--cream-dim);
+}
+
+.itemBody strong {
+  color: var(--cream);
+  font-weight: 600;
+}
+
+.itemPrice,
+.row {
+  font-variant-numeric: tabular-nums;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--cream-dim);
+}
+
+.total {
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--line);
+  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    position: static;
+    order: -1;
+  }
+}
+
+@media (max-width: 520px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

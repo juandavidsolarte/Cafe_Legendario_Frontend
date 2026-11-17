@@ -5,3 +5,8 @@ export function formatTime(minutes) {
   const rest = minutes % 60;
   return rest ? `${hours} h ${rest} min` : `${hours} h`;
 }
+
+// Precio en pesos colombianos: 38000 → "$ 38.000".
+export function formatPrice(value) {
+  return `$ ${Math.round(value).toLocaleString('es-CO')}`;
+}

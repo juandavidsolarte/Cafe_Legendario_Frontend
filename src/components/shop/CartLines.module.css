@@ -1,0 +1,89 @@
+.lines {
+  display: grid;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.line {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.thumb {
+  display: block;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--surface-2);
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.body {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.name:hover {
+  color: var(--gold);
+}
+
+.variant {
+  color: var(--caramel);
+}
+
+.price {
+  margin-top: 0.3rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.controls {
+  display: grid;
+  gap: 0.5rem;
+  justify-items: end;
+}
+
+.remove {
+  min-height: 32px;
+  padding: 0 0.25rem;
+  border: 0;
+  background: none;
+  color: var(--cream-dim);
+  font: inherit;
+  font-size: var(--step--1);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  cursor: pointer;
+}
+
+.remove:hover {
+  color: var(--gold);
+}
+
+@media (max-width: 420px) {
+  .line {
+    grid-template-columns: 68px minmax(0, 1fr);
+  }
+
+  .controls {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    justify-items: start;
+  }
+}

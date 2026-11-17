@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
+import { useCart } from '../cart/CartContext';
 import Logo from './Logo';
 import styles from './Header.module.css';
 
@@ -15,6 +16,7 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { pathname } = useLocation();
+  const { count, open: openCart } = useCart();
 
   useEffect(() => setOpen(false), [pathname]);
 
@@ -30,12 +32,22 @@ export default function Header() {
       <div className={`container ${styles.bar}`}>
         <Logo />
         <div className={styles.tools}>
-          <Link to="/carrito" className={styles.cart} aria-label="Carrito de compras">
+          <button
+            type="button"
+            className={styles.cart}
+            onClick={openCart}
+            aria-label={count ? `Abrir el carrito, ${count} ${count === 1 ? 'artículo' : 'artículos'}` : 'Abrir el carrito'}
+          >
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z" />
               <path d="M9 8V6.5a3 3 0 0 1 6 0V8" />
             </svg>
-          </Link>
+            {count > 0 && (
+              <span key={count} className={styles.badge} aria-hidden="true">
+                {count}
+              </span>
+            )}
+          </button>
           <button
             type="button"
             className={styles.toggle}
