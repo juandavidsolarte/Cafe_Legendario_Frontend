@@ -18,6 +18,7 @@ export const posterUrl = (name) => `/scrolly/${name}/poster.webp`;
  * @param {number} [options.zoom]    menor que 1 aleja el cuadro (el sujeto se ve más pequeño)
  * @param {number} [options.feather] fracción del cuadro que se desvanece en cada borde, para
  *        que no se note dónde termina la imagen cuando no llena el canvas
+ * @param {boolean} [options.wrap]    el último fotograma se mezcla con el primero (bucle cerrado)
  * @param {boolean} [options.interpolate] mezcla fotogramas vecinos en instantes fraccionarios
  * @param {() => void} [options.onFirstFrame]
  */
@@ -29,6 +30,7 @@ export function createFrameSequence({
   focus = 0.42,
   centerY = 0.5,
   interpolate = false,
+  wrap = false,
   zoom: initialZoom = 1,
   feather = 0,
   onFirstFrame,
@@ -70,15 +72,15 @@ export function createFrameSequence({
   // Dibuja un instante de la secuencia. Con `interpolate`, un instante fraccionario mezcla
   // los dos fotogramas vecinos: el movimiento sigue fluido aunque se reproduzca más lento.
   const paint = (target, time, alpha) => {
-    const clamped = Math.max(0, Math.min(count - 1, time));
-    const base = interpolate ? Math.floor(clamped) : Math.round(clamped);
+    const clamped = wrap ? ((time % count) + count) % count : Math.max(0, Math.min(count - 1, time));
+    const base = (interpolate ? Math.floor(clamped) : Math.round(clamped)) % count;
     const img = nearest(base);
     if (!img) return false;
     target.globalAlpha = alpha;
     target.drawImage(img, ...place(img));
     const mix = interpolate ? clamped - base : 0;
-    if (mix > 0.01 && base + 1 < count) {
-      const next = nearest(base + 1);
+    if (mix > 0.01 && (wrap || base + 1 < count)) {
+      const next = nearest((base + 1) % count);
       if (next && next !== img) {
         target.globalAlpha = alpha * mix;
         target.drawImage(next, ...place(next));

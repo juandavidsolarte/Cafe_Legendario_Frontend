@@ -228,6 +228,8 @@ export const recipes = [
     difficulty: 'Fácil',
     time: 10,
     featured: true,
+    // Cantidad de café de la casa que pide la receta.
+    coffee: { grams: 18, grind: 'Fina, para espresso' },
     ingredients: [
       { name: 'Espresso', quantity: '2 shots (60 ml)' },
       { name: 'Leche fría', quantity: '180 ml' },
@@ -255,6 +257,8 @@ export const recipes = [
     difficulty: 'Fácil',
     time: 960,
     featured: true,
+    // Cantidad de café de la casa que pide la receta.
+    coffee: { grams: 80, grind: 'Gruesa' },
     ingredients: [
       { name: 'Café molido grueso', quantity: '80 g' },
       { name: 'Agua fría filtrada', quantity: '1 litro' },
@@ -279,6 +283,8 @@ export const recipes = [
     difficulty: 'Fácil',
     time: 15,
     featured: true,
+    // Cantidad de café de la casa que pide la receta.
+    coffee: { grams: 50, grind: 'Gruesa' },
     ingredients: [
       { name: 'Agua', quantity: '1 litro' },
       { name: 'Panela rallada', quantity: '80 g' },
@@ -304,6 +310,8 @@ export const recipes = [
     difficulty: 'Media',
     time: 8,
     featured: false,
+    // Cantidad de café de la casa que pide la receta.
+    coffee: { grams: 9, grind: 'Fina, para espresso' },
     ingredients: [
       { name: 'Espresso', quantity: '1 shot (30 ml)' },
       { name: 'Leche entera', quantity: '120 ml' },
@@ -327,6 +335,8 @@ export const recipes = [
     difficulty: 'Fácil',
     time: 5,
     featured: false,
+    // Cantidad de café de la casa que pide la receta.
+    coffee: { grams: 9, grind: 'Fina, para espresso' },
     ingredients: [
       { name: 'Helado de vainilla', quantity: '1 bola' },
       { name: 'Espresso', quantity: '1 shot (30 ml)' },
@@ -349,6 +359,8 @@ export const recipes = [
     difficulty: 'Media',
     time: 5,
     featured: false,
+    // Cantidad de café de la casa que pide la receta.
+    coffee: { grams: 9, grind: 'Fina, para espresso' },
     ingredients: [
       { name: 'Agua tónica', quantity: '150 ml' },
       { name: 'Espresso', quantity: '1 shot (30 ml)' },
@@ -374,6 +386,8 @@ export const recipes = [
     difficulty: 'Media',
     time: 10,
     featured: false,
+    // Cantidad de café de la casa que pide la receta.
+    coffee: { grams: 12, grind: 'Media fina, para moka' },
     ingredients: [
       { name: 'Café de moka', quantity: '60 ml' },
       { name: 'Chocolate 70 %', quantity: '20 g' },
@@ -398,6 +412,8 @@ export const recipes = [
     difficulty: 'Avanzada',
     time: 6,
     featured: false,
+    // Cantidad de café de la casa que pide la receta.
+    coffee: { grams: 20, grind: 'Media' },
     ingredients: [
       { name: 'Café molido medio', quantity: '20 g' },
       { name: 'Agua caliente', quantity: '180 g' },
@@ -468,5 +484,43 @@ export const articles = [
     body:
       'El grano de café es la semilla de una fruta. Un cafeto tarda unos tres años en dar su primera cosecha y cada árbol produce cerca de medio kilo de café tostado al año.',
     image: granos,
+  },
+];
+
+// ---------- Tienda ----------
+// Datos tomados del empaque real. Un solo café con dos presentaciones (molienda); 500 g.
+export const products = [
+  {
+    id: 1,
+    slug: 'legendario-cafe',
+    name: 'Legendario Café',
+    summary: 'Taza balanceada, con notas dulces a frutas y cítricos suaves.',
+    profile: 'Acidez media y brillante, cuerpo sedoso y final afrutado.',
+    cup: 'Balanceado',
+    origin: 'San Pablo, Nariño',
+    region: 'Nariño',
+    farm: 'Sol y Arte',
+    altitude: '1700 m s. n. m.',
+    variety: 'Arábica Caturra',
+    process: 'Lavado, secado solar',
+    roast: 'Media',
+    variants: [
+      {
+        sku: 'LEG-GRANO-500',
+        grind: 'Grano',
+        grind_note: 'Grano entero, para moler justo antes de preparar.',
+        weight: '500 g',
+        price: 38000,
+        available: true,
+      },
+      {
+        sku: 'LEG-MOLIDO-500',
+        grind: 'Molido',
+        grind_note: 'Molienda media, lista para filtro, prensa o moka.',
+        weight: '500 g',
+        price: 38000,
+        available: true,
+      },
+    ],
   },
 ];

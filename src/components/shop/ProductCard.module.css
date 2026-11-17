@@ -1,0 +1,90 @@
+.card {
+  display: grid;
+  gap: 1rem;
+}
+
+.stage {
+  display: block;
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+
+/* Capa que se inclina en 3D. La foto y el brillo viven dentro. */
+.tilt {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+  will-change: transform;
+  transition: scale 0.15s var(--ease);
+}
+
+.stage:active .tilt {
+  scale: 0.985;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+.glare {
+  --x: 50;
+  --y: 50;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at calc(var(--x) * 1%) calc(var(--y) * 1%),
+    rgba(236, 183, 76, 0.26),
+    rgba(236, 183, 76, 0) 46%
+  );
+  mix-blend-mode: screen;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.info {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.info h3 {
+  font-size: var(--step-2);
+}
+
+.info h3 a {
+  text-decoration: none;
+}
+
+.info h3 a:hover {
+  color: var(--gold);
+}
+
+.cup {
+  color: var(--cream-dim);
+}
+
+.cup strong {
+  color: var(--cream);
+  font-weight: 500;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+
+.price {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}

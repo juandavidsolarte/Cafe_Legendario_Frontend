@@ -32,11 +32,21 @@ export default function Home() {
       <HeroGrano />
 
       <div className={styles.story}>
-        <ScrollLoop name="pour" id="chorro" title="Del grano nace el aroma" to="/metodos" cta="Conocer los métodos">
-          Tostar, moler y extraer. Esos tres pasos convierten una semilla en lo que hueles antes del primer sorbo.
+        <ScrollLoop
+          name="filtro"
+          frames={45}
+          ratio="11 / 20"
+          id="chorro"
+          title="Recién filtrado, todavía humeante"
+          to="/metodos"
+          cta="Conocer los métodos"
+        >
+          Agua caliente sobre café recién molido. Primero llega el olor; después, la taza que vas a querer servirte ahora.
         </ScrollLoop>
         <ScrollLoop
           name="latte"
+          frames={49}
+          blend={18}
           id="latte"
           side="right"
           title="Cada taza tiene una historia"

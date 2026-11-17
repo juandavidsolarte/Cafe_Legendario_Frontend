@@ -21,6 +21,79 @@
 .nav {
   display: flex;
   gap: 2.25rem;
+  margin-left: auto;
+}
+
+/* Carrito y botón de menú: siempre a la derecha de la barra. */
+.tools {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  order: 2;
+  margin-left: 1.75rem;
+}
+
+.cart {
+  position: relative;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: var(--cream);
+  transition: color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+
+.cart:hover {
+  color: var(--gold);
+  background: rgba(236, 183, 76, 0.1);
+}
+
+/* Contador: aparece con un pequeño rebote cada vez que cambia. */
+.badge {
+  position: absolute;
+  top: 4px;
+  right: 2px;
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding-inline: 5px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--bg);
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  animation: badge-pop 0.3s var(--ease);
+}
+
+@keyframes badge-pop {
+  from {
+    transform: scale(0.4);
+  }
+  60% {
+    transform: scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge {
+    animation: none;
+  }
+}
+
+.cart svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .link {
@@ -60,6 +133,10 @@
 }
 
 @media (max-width: 760px) {
+  .tools {
+    margin-left: auto;
+  }
+
   .toggle {
     display: grid;
     place-items: center;
