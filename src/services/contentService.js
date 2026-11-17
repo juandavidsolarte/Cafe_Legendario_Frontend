@@ -26,28 +26,58 @@ async function get(path, params) {
   return data.results ?? data;
 }
 
+// ---------- Contenido desde la API ----------
+// La API entrega algunos campos con otra forma que los datos de ejemplo; estas funciones
+// los dejan iguales para que las páginas no distingan de dónde vienen.
+// Si el administrador aún no subió una foto, se usa la foto local del contenido de ejemplo.
+const localImage = (list, slug) => list.find((item) => item.slug === slug)?.image ?? mock.images.granos;
+const withImage = (list) => (raw) => ({ ...raw, image: raw.image || localImage(list, raw.slug) });
+
+const toMethod = withImage(mock.methods);
+const toVariety = withImage(mock.varieties);
+const toArticle = (raw) => ({ ...withImage(mock.articles)(raw), topic: raw.topic_label ?? raw.topic });
+const toRecipe = (raw) => ({
+  ...withImage(mock.recipes)(raw),
+  category: raw.category?.slug ?? raw.category,
+  difficulty: raw.difficulty_label ?? raw.difficulty,
+  time: raw.prep_minutes ?? raw.time,
+});
+
+const DIFFICULTY_CODES = { Fácil: 'facil', Media: 'media', Avanzada: 'avanzada' };
+
+/** Traduce los filtros de la página de recetas a los parámetros de la API. */
+function recipeParams({ search, category, method, difficulty, featured } = {}) {
+  const params = {};
+  if (search?.trim()) params.search = search.trim();
+  if (category) params.category = category;
+  if (method) params.method = method;
+  if (difficulty) params.difficulty = DIFFICULTY_CODES[difficulty] ?? difficulty;
+  if (featured) params.featured = true;
+  return params;
+}
+
 export function getCategories() {
   return useMock ? fromMock(mock.categories) : get('/api/categories/');
 }
 
-export function getMethods() {
-  return useMock ? fromMock(mock.methods) : get('/api/methods/');
+export async function getMethods() {
+  return useMock ? fromMock(mock.methods) : (await get('/api/methods/')).map(toMethod);
 }
 
-export function getMethod(slug) {
-  return useMock ? fromMock(mock.methods, slug) : get(`/api/methods/${slug}/`);
+export async function getMethod(slug) {
+  return useMock ? fromMock(mock.methods, slug) : toMethod(await get(`/api/methods/${slug}/`));
 }
 
-export function getVarieties() {
-  return useMock ? fromMock(mock.varieties) : get('/api/varieties/');
+export async function getVarieties() {
+  return useMock ? fromMock(mock.varieties) : (await get('/api/varieties/')).map(toVariety);
 }
 
-export function getVariety(slug) {
-  return useMock ? fromMock(mock.varieties, slug) : get(`/api/varieties/${slug}/`);
+export async function getVariety(slug) {
+  return useMock ? fromMock(mock.varieties, slug) : toVariety(await get(`/api/varieties/${slug}/`));
 }
 
-export function getArticles() {
-  return useMock ? fromMock(mock.articles) : get('/api/articles/');
+export async function getArticles() {
+  return useMock ? fromMock(mock.articles) : (await get('/api/articles/')).map(toArticle);
 }
 
 // La API y los datos de ejemplo comparten forma; aquí se añaden las fotos y los nombres del frontend.
@@ -108,12 +138,12 @@ export async function getOrder(reference) {
   return data;
 }
 
-export function getRecipe(slug) {
-  return useMock ? fromMock(mock.recipes, slug) : get(`/api/recipes/${slug}/`);
+export async function getRecipe(slug) {
+  return useMock ? fromMock(mock.recipes, slug) : toRecipe(await get(`/api/recipes/${slug}/`));
 }
 
 export async function getRecipes(filters = {}) {
-  if (!useMock) return get('/api/recipes/', filters);
+  if (!useMock) return (await get('/api/recipes/', recipeParams(filters))).map(toRecipe);
   const search = (filters.search || '').trim().toLowerCase();
   const result = mock.recipes.filter(
     (recipe) =>
